@@ -27,7 +27,10 @@ export interface Character extends BaseCollection {
     alias?: string;
     description: string;
     image?: string;
-    player: User;
+    player: string;
+    expand?: {
+        player: User;
+    }
 }
 
 export interface Person extends BaseCollection {
@@ -39,12 +42,18 @@ export interface Person extends BaseCollection {
 
 export interface Phone extends BaseCollection {
     owner: string;
+    expand?: {
+        owner: Character;
+    }
     image: string;
 }
 
 export interface Sms extends BaseCollection {
     counterpart: string;
     phone: string;
+    expand?: {
+        phone: Phone;
+    }
     message: string;
     published: boolean;
     isSender: boolean;

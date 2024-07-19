@@ -3,10 +3,15 @@ import { pb } from '$lib/pocketbase';
 export const prerender = false;
 
 export async function load({ params }) {
-    const sms = await pb.collection('sms').getFullList();
+    const sms = await pb.collection('sms').getFullList({
+        filter: `phone.id = "${params.slug}" && published = true`,
+        expand: "phone.owner",
+        sort: "receivedTime", 
+    });
 
-    for (const message of sms) {
-    }
+    let counterparts = [
+        ...new Set(sms.map(message => message.counterpart)),
+    ];
 
-    return { sms: sms.filter(s => s.phone === params.slug) };
+    return { sms, counterparts };
 }
