@@ -13,8 +13,8 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: undefined,
-			precompress: true,
-			strict: true
+			precompress: false,
+			strict: false
 		}),
 	}
 };
