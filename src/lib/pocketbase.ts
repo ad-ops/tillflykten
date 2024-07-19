@@ -69,5 +69,4 @@ interface TypedPocketBase extends PocketBase {
     collection(idOrName: 'sms'): RecordService<Sms>
 }
 
-// const pbUrl = process.env.PB_URL || undefined;
-export const pb = new PocketBase("http://localhost:8090") as TypedPocketBase;
+export const pb = new PocketBase(import.meta.env.VITE_PB_URL || "") as TypedPocketBase;
