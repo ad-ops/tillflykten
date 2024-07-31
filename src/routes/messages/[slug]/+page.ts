@@ -13,5 +13,5 @@ export async function load({ params }) {
         ...new Set(sms.map(message => message.counterpart)),
     ];
 
-    return { sms, counterparts };
+    return { sms, counterparts, phoneId: params.slug };
 }
