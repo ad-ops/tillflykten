@@ -4,7 +4,7 @@ A simple web app as an aid for playing [Skjut dom i huvudet](https://www.skjutdo
 Made as an example of a simple prototype stack where it is easy to make an UI and to model the data together with other backend features such as auth.
 
 ## Technical
-Built with [Svelte 5]() as a SPA and [Pocketbase]() as a backend/db.
+Built with [Svelte](https://svelte.dev/) as a SPA and [Pocketbase](https://pocketbase.io) as a backend/db.
 
 #### Build
 ```sh
