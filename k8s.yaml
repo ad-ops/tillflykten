@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tillflykten
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tillflykten
+  namespace: tillflykten
+  labels:
+    app: tillflykten
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tillflykten
+  template:
+    metadata:
+      labels:
+        app: tillflykten
+    spec:
+      containers:
+      - name: tillflykten
+        image: ghcr.io/ad-ops/tillflykten:main
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: pb-data
+          mountPath: /pb/pb_data
+      volumes:
+      - name: pb-data
+        persistentVolumeClaim:
+          claimName: tillflykten-pb-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tillflykten
+  namespace: tillflykten
+spec:
+  selector:
+    app: tillflykten
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tillflykten-pb-data
+  namespace: tillflykten
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
+
